@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import axios from "axios";
+
 import {
   Dialog,
   DialogContent,
@@ -26,9 +28,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { FormValues, formSchema } from "@/lib/validation/server-validation";
 import FileUpload from "../FileUpload";
+import { useRouter } from "next/navigation";
 
 const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -44,8 +49,16 @@ const InitialModal = () => {
 
   const isloading = form.formState.isSubmitting;
 
-  const onSubmit = async (value: FormValues) => {
-    console.log(value);
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await axios.post("/api/servers", values);
+
+      form.reset();
+      router.refresh();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (!isMounted) return null;
