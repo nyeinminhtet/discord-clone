@@ -23,7 +23,7 @@ const FileUpload = ({ endPoint, value, onChange }: FileUploadProps) => {
         <Image src={value} alt="server image" fill className="rounded-full" />
         <button
           onClick={() => onChange("")}
-          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 left-0 shadow-sm"
+          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
           type="button"
         >
           <X className="w-4 h-4" />
@@ -38,7 +38,7 @@ const FileUpload = ({ endPoint, value, onChange }: FileUploadProps) => {
         onChange(res?.[0].url);
       }}
       onUploadError={(error: Error) => {
-        console.log(error);
+        console.log({ error });
       }}
     />
   );
