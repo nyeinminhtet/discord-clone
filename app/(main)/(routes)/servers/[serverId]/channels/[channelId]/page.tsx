@@ -3,9 +3,10 @@ import React from "react";
 import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
+import { currentProfile } from "@/lib/current-profile";
 import ChatHeader from "@/components/chat/ChatHeader";
+import ChatInput from "@/components/chat/ChatInput";
 
 interface ChannelPageProps {
   params: {
@@ -41,6 +42,16 @@ const ChannelPage = async ({
         type="channel"
         serverId={channel.serverId}
         name={channel.name}
+      />
+      <div className="flex-1">message</div>
+      <ChatInput
+        name={channel.name}
+        apiUrl="/api/socket/messages"
+        type="channel"
+        query={{
+          channelId: channel.id,
+          serverId: serverId,
+        }}
       />
     </div>
   );
