@@ -207,6 +207,8 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
           </div>
         )}
       </ScrollArea>
+
+      <div>hello</div>
     </div>
   );
 };
