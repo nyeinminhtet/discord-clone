@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import UserAvator from "../UserAvator";
 import { ActionTooltip } from "../ActionTooltip";
+import { useModalStore } from "@/hooks/use-modal-store";
 
 interface ChatItemProps {
   id: string;
@@ -57,7 +58,7 @@ const ChatItem = ({
   socketUrl,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const { onOpen } = useModalStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -223,20 +224,26 @@ const ChatItem = ({
       {canDeleteMessage && (
         <div
           className="hidden group-hover:flex items-center gap-x-2
-        absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border
-        rounded-sm"
+                      absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border
+                      rounded-sm"
         >
           {canEditMessage && (
             <ActionTooltip label="Edit">
               <Edit
                 onClick={() => setIsEditing(true)}
                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500
-              hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                          hover:text-zinc-600 dark:hover:text-zinc-300 transition"
               />
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
             <Trash
+              onClick={() =>
+                onOpen("deleteMessage", {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
               className="cursor-pointer ml-auto w-4 h-4 text-zinc-500
               hover:text-zinc-600 dark:hover:text-zinc-300 transition"
             />
