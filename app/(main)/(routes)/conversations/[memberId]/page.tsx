@@ -9,12 +9,15 @@ import React from "react";
 interface ConversationPageProps {
   params: {
     memberId: string;
+  };
+  searchParams: {
     serverId: string;
   };
 }
 
 const ConversationPage = async ({
-  params: { memberId, serverId },
+  params: { memberId },
+  searchParams: { serverId },
 }: ConversationPageProps) => {
   const profile = await currentProfile();
 
