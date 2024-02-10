@@ -10,7 +10,6 @@ import UserAvator from "../UserAvator";
 
 interface ServerMemberProps {
   member: Member & { profile: Profile };
-  server: Server;
 }
 
 const roleIconMap = {
@@ -21,14 +20,14 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <Crown className="h-4 w-4 ml-auto text-yellow-500" />,
 };
 
-const ServerMember = ({ member, server }: ServerMemberProps) => {
+const ServerMember = ({ member }: ServerMemberProps) => {
   const router = useRouter();
   const params = useParams();
 
   const icon = roleIconMap[member.role];
 
   const onClick = () => {
-    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+    router.push(`/conversations/${member.id}?serverId=${params?.serverId}`);
   };
 
   return (
@@ -45,7 +44,7 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
         className={cn(
           `text-sm font-semibold text-zinc-500 group-hover:text-zinc-600
         dark:text-zinc-400 dark:group-hover:text-zinc-300 transition`,
-          params.memberId === member.id &&
+          params?.memberId === member.id &&
             "text-primary dark:text-zinc-200 dark:group-hover:text-white"
         )}
       >

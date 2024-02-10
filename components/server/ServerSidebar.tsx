@@ -20,6 +20,7 @@ import { Separator } from "../ui/separator";
 import ServerSection from "./ServerSection";
 import ServerChannel from "./ServerChannel";
 import ServerMember from "./ServerMember";
+import ServerBottomUserProfile from "./ServerBottomUserProfile";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -201,14 +202,14 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
 
             <div className="space-y-[2px]">
               {members.map((member) => (
-                <ServerMember key={member.id} member={member} server={server} />
+                <ServerMember key={member.id} member={member} />
               ))}
             </div>
           </div>
         )}
       </ScrollArea>
 
-      <div>hello</div>
+      <ServerBottomUserProfile profile={profile} />
     </div>
   );
 };
