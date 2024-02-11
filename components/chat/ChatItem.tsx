@@ -68,7 +68,7 @@ const ChatItem = ({
     if (member.id === currentMember.id) {
       return;
     }
-    router.push(`/conversations/${member.id}?serverId=${params?.serverId}`);
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
   };
 
   const form = useForm<z.infer<typeof formSchema>>({

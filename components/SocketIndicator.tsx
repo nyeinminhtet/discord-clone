@@ -10,15 +10,15 @@ const SocketIndicator = () => {
 
   if (!isConnected) {
     return (
-      <Badge variant="outline" className="bg-yellow-600 text-white border-none">
-        fallback
-      </Badge>
+      <div className="absolute bottom-0 right-0 bg-zinc-800 rounded-full w-3 h-3">
+        <div className="bg-slate-500 text-white w-[10px] h-[10px] rounded-full border-none" />
+      </div>
     );
   }
   return (
-    <Badge variant="outline" className="bg-emerald-600 text-white border-none">
-      Live
-    </Badge>
+    <div className="absolute bottom-0 right-0 bg-zinc-800 rounded-full w-3 h-3">
+      <div className="bg-emerald-600 text-white w-[10px] h-[10px] rounded-full border-none" />
+    </div>
   );
 };
 
